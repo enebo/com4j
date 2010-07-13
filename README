@@ -1,0 +1,3 @@
+This is a fork to com4j from java.net for two reasons:
+1. CVS will impede workflow for us and we can always patch back to CVS master
+2. We want to change the build to be able to just build the java bits
