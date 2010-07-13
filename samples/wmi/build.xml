@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project name="wmi" default="run" basedir=".">
+  
+  <path id="com4j">
+    <fileset dir="../.." includes="*.jar"/>
+    <pathelement location="build/classes"/>
+    <pathelement path="${java.class.path}"/><!-- this line is just to allow the sample inside the workspace -->
+  </path>
+  
+  <taskdef resource="com4j/tlbimp/ant.properties">
+    <classpath refid="com4j" />
+  </taskdef>
+  
+  
+  <target name="tlbimp">
+    <mkdir dir="build/src"/>
+    <!-- compile wbemdisp.tlb -->
+    <tlbimp libid="565783C6-CB41-11D1-8B02-00600806D9B6"
+      destdir="build/src" package="wmi" />
+  </target>
+  
+  <target name="compile" depends="tlbimp">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="build/src" destdir="build/classes"
+           debug="on">
+      <classpath refid="com4j" />
+    </javac>
+    <javac srcdir="src" destdir="build/classes"
+           debug="on">
+      <classpath refid="com4j" />
+    </javac>
+  </target>
+  
+  <target name="run" depends="compile">
+    <java classname="wmi.Main" fork="true">
+      <classpath>
+        <path refid="com4j"/>
+      </classpath>
+    </java>
+  </target>
+  
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+</project>

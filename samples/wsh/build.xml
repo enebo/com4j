@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="wsh" default="run" basedir=".">
+  
+  <path id="com4j">
+    <fileset dir="../.." includes="*.jar"/>
+    <pathelement location="build/classes"/>
+    <pathelement path="${java.class.path}"/><!-- this line is just to allow the sample inside the workspace -->
+  </path>
+  
+  <taskdef resource="com4j/tlbimp/ant.properties">
+    <classpath refid="com4j" />
+  </taskdef>
+  
+  
+  <target name="tlbimp">
+    <mkdir dir="build/src"/>
+    <!-- compile wshom.ocx -->
+    <tlbimp libid="F935DC20-1CF0-11D0-ADB9-00C04FD58A0B"
+      destdir="build/src" package="wsh" />
+  </target>
+  
+  <target name="compile" depends="tlbimp">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="build/src" destdir="build/classes"
+           debug="on">
+      <classpath refid="com4j" />
+    </javac>
+    <javac srcdir="src" destdir="build/classes"
+           debug="on">
+      <classpath refid="com4j" />
+    </javac>
+  </target>
+  
+  <target name="run" depends="compile">
+    <java classname="Main" fork="true">
+      <arg value="c:/windows/system32/wshom.ocx"/>
+      <classpath>
+        <path refid="com4j"/>
+      </classpath>
+    </java>
+  </target>
+  
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+</project>

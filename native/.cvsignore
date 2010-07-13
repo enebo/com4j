@@ -1,0 +1,11 @@
+*.aps
+*.suo
+*.sln
+*.ncb
+Debug
+com4j_i.c
+com4j_p.c
+dlldata.c
+com4j_h.h
+com4j.tlb
+Release

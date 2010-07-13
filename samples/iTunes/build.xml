@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project name="wmi" default="run" basedir=".">
+  
+  <path id="com4j">
+    <fileset dir="../.." includes="*.jar"/>
+    <pathelement location="build/classes"/>
+    <pathelement path="${java.class.path}"/><!-- this line is just to allow the sample inside the workspace -->
+  </path>
+  
+  <taskdef resource="com4j/tlbimp/ant.properties">
+    <classpath refid="com4j" />
+  </taskdef>
+  
+  
+  <target name="tlbimp">
+    <mkdir dir="build/src"/>
+    <!-- compile iTunes.exe -->
+    <tlbimp libid="9E93C96F-CF0D-43F6-8BA8-B807A3370712"
+      destdir="build/src" package="iTunes.def" />
+  </target>
+  
+  <target name="compile" depends="tlbimp">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="build/src" destdir="build/classes"
+           debug="on">
+      <classpath refid="com4j" />
+    </javac>
+    <javac srcdir="src" destdir="build/classes"
+           debug="on">
+      <classpath refid="com4j" />
+    </javac>
+  </target>
+  
+  <target name="run" depends="compile">
+    <java classname="iTunes.Main" fork="true">
+      <classpath>
+        <path refid="com4j"/>
+      </classpath>
+    </java>
+  </target>
+  
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+</project>

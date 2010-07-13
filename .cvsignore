@@ -1,0 +1,9 @@
+com4j.iws
+build
+hs_err_pid*.log
+dist
+exp
+in-progress
+sandbox
+work
+jnitl
