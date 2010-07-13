@@ -13,7 +13,7 @@
       <manifest>
         <attribute name="Build-Date" value="${DSTAMP}" />
       </manifest>
-      <metainf dir="../../www" includes="LICENSE.txt" />
+      <metainf dir=".." includes="LICENSE.txt" />
       <fileset dir="build/classes" includes="**/*.class"/>
       <fileset dir="src" includes="**/*.properties"/>
       <zipfileset dir="../native/Release" includes="com4j.dll" prefix="com4j" />
